@@ -246,12 +246,12 @@ fn parse_message(msg: Message) -> Result<KucoinWebsocketMsg, APIError> {
                         &msg,
                     )?))
                 } else {
-                    serde::export::Err(APIError::Other(
+                    Err(APIError::Other(
                         "No KucoinWebSocketMsg type to parse".to_string(),
                     ))
                 }
             } else {
-                serde::export::Err(APIError::Other(
+                Err(APIError::Other(
                     "No KucoinWebSocketMsg type to parse".to_string(),
                 ))
             }
@@ -260,7 +260,7 @@ fn parse_message(msg: Message) -> Result<KucoinWebsocketMsg, APIError> {
         Message::Pong(..) => Ok(KucoinWebsocketMsg::Pong),
         Message::Ping(..) => Ok(KucoinWebsocketMsg::Ping),
         Message::Close(..) => {
-            serde::export::Err(APIError::Other("Socket closed error".to_string()))
+            Err(APIError::Other("Socket closed error".to_string()))
         }
     }
 }
